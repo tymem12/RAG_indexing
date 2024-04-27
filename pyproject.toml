@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "rag-indexing"
+version = "0.1.0"
+description = ""
+authors = ["Tymoteusz Zapala"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+openai = "^1.23.6"
+langchain = "^0.1.16"
+pypdf = "^4.2.0"
+tiktoken = "^0.6.0"
+sentence-transformers = "^2.7.0"
+faiss-cpu = "^1.8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
