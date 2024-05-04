@@ -8,16 +8,15 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 langchain = "^0.1.16"
-pypdf = "^4.2.0"
 tiktoken = "^0.6.0"
 sentence-transformers = "^2.7.0"
-faiss-cpu = "^1.8.0"
 pandas = "^2.2.2"
 chromadb = "^0.5.0"
 lark = "^1.1.9"
-opendatasets = "^0.1.22"
+flask = "^3.0.3"
 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
