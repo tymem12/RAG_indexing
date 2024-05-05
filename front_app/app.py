@@ -14,14 +14,9 @@ def index():
     
     if request.method == 'POST':
         if 'search' in request.form:
-            app.logger.debug("search")
 
             question = request.form['question']
-            app.logger.debug(question)
-
             answer = str(rag.find_documents(question))
-            app.logger.debug(answer)
-
             return render_template('index.html', question=question, answer=answer)
         elif 'clear' in request.form:
 

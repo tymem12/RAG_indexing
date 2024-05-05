@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc libffi-dev 
 RUN apt-get update && apt-get install -y sqlite3
 RUN sqlite3 --version
 
-# install version od sqlite 3.35 that is compatible with chroma
+# Install version od sqlite 3.35 that is compatible with chroma
 RUN wget https://www.sqlite.org/2021/sqlite-autoconf-3350000.tar.gz \
     && tar xzf sqlite-autoconf-3350000.tar.gz \
     && cd sqlite-autoconf-3350000 \

@@ -13,8 +13,6 @@ from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.chains.query_constructor.base import AttributeInfo
 from langchain.vectorstores.chroma import Chroma
 
-
-
  
 CHROMA_DB_DIR : str = "./RAG/chroma_db/"
 KAGGLE_DATASET_PATH : Path = Path("./1300-towards-datascience-medium-articles-dataset/medium.csv")
@@ -41,15 +39,14 @@ class RAG:
 
 
     def __load_date(self, path_to_folder : Path) -> pd.DataFrame:
-        df : pd.DataFrame = pd.read_csv(path_to_folder)
-        self.__df = df
+        self.__df =  pd.DataFrame = pd.read_csv(path_to_folder)
         self.__path = path_to_folder
-        return df
+        return self.__df
 
 
     def __create_documents(self, r_splitter : TextSplitter) -> list[Document]:
-        text_list = self.__df['Text'].tolist()
-        title_list = self.__df['Title'].tolist()
+        text_list: list[str] = self.__df['Text'].tolist()
+        title_list: list[str]= self.__df['Title'].tolist()
         self.__documents = r_splitter.create_documents(texts = text_list, metadatas = [{"Title" : title, "from file" : self.__path.name} for title in title_list])
         return self.__documents
 
@@ -58,18 +55,8 @@ class RAG:
 
         if not os.listdir(path_to_db):
             self.__db = Chroma.from_documents(self.__documents, embeddings,collection_name='db_embeddings' ,persist_directory=path_to_db)
-            print(self.__db.similarity_search("what is SQL"))
-
         else:
-            print(os.getcwd())
-            print(os.listdir(os.getcwd()))
-            print(os.listdir(os.getcwd() + '/' + 'RAG/'))
-            print(os.listdir(path_to_db))
-
-
             self.__db = Chroma(collection_name='db_embeddings', persist_directory=path_to_db, embedding_function=embeddings)
-            print(self.__db.similarity_search("what is SQL"))
-
         return self.__db
 
 
@@ -96,13 +83,8 @@ class RAG:
         else:
             answer = self.__db.max_marginal_relevance_search(query, fetch_k=4, k = 2)
 
-        ret_ans : str = ''
-        for doc in answer:
-            ret_ans += doc
-            ret_ans += '\n'
-        return ret_ans
-
-
+        
+        return answer
 
 
 def get_RAG_model() -> RAG:
@@ -143,19 +125,12 @@ def __create_RAG_model() -> RAG:
 
     
     model_name = "BAAI/bge-small-en-v1.5"
-    encode_kwargs = {'normalize_embeddings': True} # set True to compute cosine similarity
+    encode_kwargs = {'normalize_embeddings': True} 
 
     embeddings = HuggingFaceBgeEmbeddings(
     model_name=model_name,
     encode_kwargs=encode_kwargs
 )
 
-    # embeddings : HuggingFaceEmbeddings= HuggingFaceEmbeddings()
     return RAG(metadata_field_info, document_content_description, r_splitter, embeddings, llm)
 
-    
-
-
-if __name__ == '__main__':
-    pass
-    
